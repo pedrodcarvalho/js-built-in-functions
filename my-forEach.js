@@ -1,10 +1,10 @@
-Array.prototype.myForEach = function (callbackfn) {
-    let newArray = new Array;
+Array.prototype.myForEach = function (callbackFn, thisArg) {
+    for (let i = 0; i < thisArg.length; i++) {
+        callbackFn(thisArg[i], i, thisArg);
+    }
+}
 
-    for (let i = 0; i < this.length; i++)
-        newArray.push(callbackfn(this[i]));
-};
+const array = [1, 2, 3, 4, 5];
+const thisArg = array;
 
-const arr = [1, 2, 3];
-
-arr.myForEach(n => console.log(n ** 2));
+console.log(array.myForEach((element, index, array) => element ** 2, thisArg));

@@ -1,14 +1,16 @@
-Array.prototype.myForEach = function (callbackfn) {
-    let newArray = new Array;
+Array.prototype.myFilter = function (callbackfn, thisArg) {
+    const newArray = [];
 
-    for (let i = 0; i < this.length; i++) {
-        if (callbackfn(this[i]))
-            newArray.push(this[i]);
+    for (let i = 0; i < thisArg.length; i++) {
+        if (callbackfn(thisArg[i], i, thisArg)) {
+            newArray.push(thisArg[i]);
+        }
     }
 
     return newArray;
-};
+}
 
-const arr = [1, 2, 3];
+const array = [1, 2, 3, 4, 5];
+const thisArg = array;
 
-console.log(arr.myForEach(n => n > 2));
+console.log(array.myFilter((element, index, array) => element % 2 === 0, thisArg));

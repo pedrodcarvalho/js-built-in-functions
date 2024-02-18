@@ -1,12 +1,18 @@
-Array.prototype.myReduce = function (callbackfn, initialValue = 0) {
-    let acc = initialValue;
+Array.prototype.myReduce = function (callbackFn, initialValue) {
+    let accumulator = initialValue || this[0];
+    let currentValue = initialValue ? this[0] : this[1];
+    let currentIndex = initialValue ? 0 : 1;
 
-    for (let i = 0; i < this.length; i++)
-        acc = (callbackfn(acc, this[i]));
+    for (let i = currentIndex; i < this.length; i++) {
+        accumulator = callbackFn(accumulator, currentValue, i, this);
 
-    return acc;
-};
+        currentValue = this[i + 1];
+    }
 
-const arr = [1, 2, 3];
+    return accumulator;
+}
 
-console.log(arr.myReduce((acc, n) => acc + n));
+const array = [1, 2, 3, 4, 5];
+const initialValue = 0;
+
+console.log(array.myReduce(((accumulator, currentValue, currentIndex, array) => accumulator + currentValue), initialValue));
